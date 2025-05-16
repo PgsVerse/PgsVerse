@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>StudyVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top:6rem;">
+    <div class="container">
+      <h2>StudyVerse</h2>
+      <p>Browse & submit study notes, exam files & resources. Earn Vcoins per upload.</p>
+
+      <div class="form-card">
+        <input type="file" id="fileUpload"/>
+        <button class="btn" onclick="uploadFile()">Upload File</button>
+      </div>
+
+      <h3>Available Resources</h3>
+      <ul id="fileList">
+        <!-- JS will render list items with download links -->
+      </ul>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

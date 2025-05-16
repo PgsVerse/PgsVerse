@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GossipVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- NAVBAR (same as before) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section alt" style="padding-top:6rem;">
+    <div class="container">
+      <h2>GossipVerse</h2>
+      <p>Spill all the tea—drop your juiciest campus hot-takes & rumors. (Sign-in required.)</p>
+
+      <div class="form-card">
+        <textarea id="gossipInput" rows="4" placeholder="Your gossip…"></textarea>
+        <button class="btn" onclick="postGossip()">Post Gossip</button>
+      </div>
+
+      <div id="gossipFeed">
+        <!-- JS will append approved gossip items here -->
+      </div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

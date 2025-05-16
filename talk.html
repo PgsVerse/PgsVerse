@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>TalkVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- TALKVERSE -->
+  <section class="section" style="padding-top:6rem;">
+    <div class="container">
+      <h2>TalkVerse</h2>
+      <p>Join X-style forums on notes, games, classes, timepass nd roast battles.</p>
+      <div id="threads">
+        <!-- JS will inject threads here -->
+      </div>
+      <button class="btn" onclick="startNewThread()">New Thread</button>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

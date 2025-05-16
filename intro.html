@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>About PGSVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR (same logic as index.html) -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li id="navSignIn"><a href="signin.html">Sign In</a></li>
+        <li id="navDashboard" style="display:none"><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- FULL INTRO COPY -->
+  <section class="section" style="padding-top:6rem;">
+    <div class="container">
+      <h1>About PGSVerse</h1>
+      <p>This page kicked off in <strong>June 2024</strong> to boost our fame—but everything changed once we ran <em>THE TEACHERS CHAMPIONSHIP</em>. It got so lit that every teacher nd student dived in!</p>
+      <p>Since then, we’ve been droppin' nonstop memes, hosting wild games and gossip drops, nd building a safe, hype place for PGS fam. Our mission? To keep you & your friends entertained, give you a voice online, nd maybe even inspire you to join PGS for something truly epic.</p>
+      <p>Got ideas or want to see something new? Hit us up—this is your campus, after all. Stay tuned for exclusive badges, Vcoin rewards, and next-level school pride.</p>
+      <button class="btn" onclick="location.href='index.html'">← Back to Home</button>
+    </div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import { getAuth, onAuthStateChanged } 
+      from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuoQs8ntO6ityQsMeMwMulk9mO2m4ScVI",
+      authDomain: "verse-96d1b.firebaseapp.com",
+      projectId: "verse-96d1b",
+      storageBucket: "verse-96d1b.appspot.com",
+      messagingSenderId: "442515393829",
+      appId: "1:442515393829:web:049678d9cb119d4146decc",
+      measurementId: "G-3C74806Q83"
+    };
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Same nav show/hide logic
+    onAuthStateChanged(auth, user => {
+      document.getElementById('navSignIn').style.display    = user ? 'none' : 'block';
+      document.getElementById('navDashboard').style.display = user ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>

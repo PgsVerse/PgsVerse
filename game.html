@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GameVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top:6rem;">
+    <div class="container">
+      <h2>GameVerse</h2>
+      <p>Solve today’s riddle to earn 50 Vcoins. No penalty if you miss!</p>
+
+      <div class="form-card">
+        <p id="riddleText">What has keys but can’t open locks?</p>
+        <input type="text" id="riddleAnswer" placeholder="Your answer…"/>
+        <button class="btn" onclick="submitRiddle()">Submit Answer</button>
+      </div>
+
+      <div id="riddleResponse"></div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

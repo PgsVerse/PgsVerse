@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PGSVerse • Home</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#intro" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="#intro">Home</a></li>
+        <li id="navSignIn"><a href="signin.html">Sign In</a></li>
+        <li id="navDashboard" style="display:none"><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- INTRO -->
+  <section id="intro" class="hero">
+    <div class="container">
+      <h1>Welcome to PGSVerse</h1>
+      <p>
+        PGSVerse is an Instagram hub for students to explore memes nd fun stuff from our so-goated Prachin Global School.  
+        We’re here to connect, entertain, nd level up the PGS vibe online.
+      </p>
+      <button class="btn" onclick="location.href='intro.html'">Read More</button>
+    </div>
+  </section>
+
+  <!-- GOSSIPVERSE -->
+  <section id="gossip" class="section alt">
+    <div class="container">
+      <h2>GossipVerse</h2>
+      <p>Spill all the tea—drop your juiciest campus hot-takes nd rumors. (Posts go to our sheet for manual approval after sign-in.)</p>
+      <button class="btn" onclick="location.href='gossip.html'">Enter GossipVerse</button>
+    </div>
+  </section>
+
+  <!-- TALKVERSE -->
+  <section id="talk" class="section">
+    <div class="container">
+      <h2>TalkVerse</h2>
+      <p>Join X-style forums on notes, games, classes, timepass nd roast battles. Unlock new forums once you earn the special badge.</p>
+      <button class="btn" onclick="location.href='talk.html'">Go to TalkVerse</button>
+    </div>
+  </section>
+
+  <!-- STUDYVERSE -->
+  <section id="study" class="section alt">
+    <div class="container">
+      <h2>StudyVerse</h2>
+      <p>Browse & submit study notes, exam files nd resources. Earn Vcoins for every upload to help your squad study smarter.</p>
+      <button class="btn" onclick="location.href='study.html'">Jump into StudyVerse</button>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="leaderboard" class="section">
+    <div class="container">
+      <h2>Leaderboard</h2>
+      <p>See the top Vcoin flexers—live rankings from 1 to n. Top 3 earn 50 coins every Sunday!</p>
+      <button class="btn" onclick="location.href='leaderboard.html'">View Leaderboard</button>
+    </div>
+  </section>
+
+  <!-- GAMEVERSE -->
+  <section id="game" class="section alt">
+    <div class="container">
+      <h2>GameVerse</h2>
+      <p>Solve riddles & quizzes to earn 50 Vcoins per win. If you miss one—“better luck next time”—no penalties.</p>
+      <button class="btn" onclick="location.href='game.html'">Play in GameVerse</button>
+    </div>
+  </section>
+
+  <!-- LOUNGEVERSE -->
+  <section id="lounge" class="section">
+    <div class="container">
+      <h2>LoungeVerse</h2>
+      <p>Unlock for 25,000 Vcoins to access sus & dark exclusives—plus earn 5× coins on every activity here.</p>
+      <button class="btn" onclick="location.href='lounge.html'">Enter LoungeVerse</button>
+    </div>
+  </section>
+
+  <script type="module">
+    import { initializeApp }  from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import { getAuth, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuoQs8ntO6ityQsMeMwMulk9mO2m4ScVI",
+      authDomain: "verse-96d1b.firebaseapp.com",
+      projectId: "verse-96d1b",
+      storageBucket: "verse-96d1b.appspot.com",
+      messagingSenderId: "442515393829",
+      appId: "1:442515393829:web:049678d9cb119d4146decc",
+      measurementId: "G-3C74806Q83"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const navSignIn    = document.getElementById('navSignIn');
+    const navDashboard = document.getElementById('navDashboard');
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        navSignIn.style.display    = 'none';
+        navDashboard.style.display = 'block';
+      } else {
+        navSignIn.style.display    = 'block';
+        navDashboard.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

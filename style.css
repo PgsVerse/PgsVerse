@@ -1,0 +1,192 @@
+/* === COLORS & VARIABLES === */
+:root {
+  --bg:             #111;      /* page background */
+  --nav-bg:         #000;      /* nav background */
+  --section-alt-bg: #1a1a1a;   /* alternating section bg */
+  --text:           #e0e0e0;   /* light grey */
+  --accent:         #00ffa2;   /* neon green */
+  --highlight:      #ff0088;   /* neon pink */
+}
+
+/* === RESET & BASE === */
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background: var(--nav-bg);
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+.navbar .container {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 0;
+}
+.logo {
+  font-size: 1.5rem; font-weight: bold;
+  color: var(--accent);
+}
+.nav-links {
+  list-style: none; display: flex; gap: 1.5rem;
+}
+.nav-links a {
+  font-weight: 500;
+  color: var(--accent);
+  transition: color .2s;
+}
+.nav-links a:hover {
+  color: var(--highlight);
+}
+
+/* === HERO / INTRO === */
+.hero {
+  padding-top: 5rem;    /* offset for fixed nav */
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2.75rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+.hero p {
+  font-size: 1.125rem;
+  max-width: 700px;
+  margin: 0.75rem auto 1.5rem;
+  opacity: 0.9;
+}
+
+/* === SECTIONS === */
+.section {
+  padding: 3rem 0;
+  text-align: center;
+}
+.section.alt {
+  background: var(--section-alt-bg);
+}
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--highlight);
+}
+.section p {
+  font-size: 1rem;
+  max-width: 650px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.9;
+}
+
+/* === BUTTONS === */
+.btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--nav-bg);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+
+/* —— FORM / INPUTS —— */
+textarea,
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.75rem;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+/* Card wrapper for forms */
+.form-card {
+  background: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+
+/* —— TABLE —— */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+th, td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #333;
+  text-align: left;
+  font-size: 0.95rem;
+}
+th {
+  background: #1e1e1e;
+  color: var(--accent);
+}
+tr:nth-child(even) {
+  background: #1a1a1a;
+}
+
+/* —— BUTTON STRETCH —— */
+.btn {
+  min-width: 160px;
+}
+
+
+/* === CUSTOM SELECT STYLING === */
+.form-card select {
+  /* Base styling to match your inputs */
+  width: 100%;
+  padding: 0.75rem 1.5rem 0.75rem 0.75rem;
+  background: #1e1e1e;
+  color: var(--text);
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  /* Remove default arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Custom arrow via SVG data-URI */
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ff0088' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1em;
+  cursor: pointer;
+}
+
+.form-card select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0,255,162,0.3);
+}

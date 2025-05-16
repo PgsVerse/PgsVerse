@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboard • PGSVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">PGSVerse</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#" id="signOutBtn">Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PROFILE DISPLAY -->
+  <section class="section" style="padding-top:6rem;">
+    <div class="container form-card">
+      <h2>Your Dashboard</h2>
+      <p><strong>Name:</strong>   <span id="profName">Loading…</span></p>
+      <p><strong>Email:</strong>  <span id="profEmail"></span></p>
+      <p><strong>Role:</strong>   <span id="profRole"></span></p>
+      <p><strong>Class:</strong>  <span id="profClass"></span></p>
+      <p><strong>Vcoins:</strong> <span id="profCoins"></span></p>
+      <p><strong>Badges:</strong> <span id="profBadges"></span></p>
+    </div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc
+    } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+    // Firebase init
+    const cfg = {
+      apiKey: "AIzaSyDuoQs8ntO6ityQsMeMwMulk9mO2m4ScVI",
+      authDomain: "verse-96d1b.firebaseapp.com",
+      projectId: "verse-96d1b",
+      storageBucket: "verse-96d1b.appspot.com",
+      messagingSenderId: "442515393829",
+      appId: "1:442515393829:web:049678d9cb119d4146decc",
+      measurementId: "G-3C74806Q83"
+    };
+    const app  = initializeApp(cfg);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // Sign out link
+    document.getElementById('signOutBtn').onclick = () =>
+      signOut(auth).then(() => location.replace('signin.html'));
+
+    // Auth guard + load profile
+    onAuthStateChanged(auth, async user => {
+      if (!user) return location.replace('signin.html');
+      const snap = await getDoc(doc(db,'users',user.uid));
+      const d    = snap.data() || {};
+      document.getElementById('profName').textContent   = d.name;
+      document.getElementById('profEmail').textContent  = d.email;
+      document.getElementById('profRole').textContent   = d.role;
+      document.getElementById('profClass').textContent  = d.class;
+      document.getElementById('profCoins').textContent  = d.vcoins;
+      document.getElementById('profBadges').textContent = (d.badges || []).join(', ') || 'None';
+    });
+  </script>
+</body>
+</html>

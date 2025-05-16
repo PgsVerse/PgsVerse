@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sign In • PGSVerse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <div class="container" style="padding-top:6rem; text-align:center;">
+    <!-- Static sign-in UI -->
+    <div id="signInContainer">
+      <h1>Sign in to PGSVerse</h1>
+      <button id="signInBtn" class="btn">Sign in with Google</button>
+    </div>
+
+    <!-- Profile form (hidden until after sign-in) -->
+    <div id="profileContainer" style="display:none; margin-top:2rem;">
+      <h1>Complete Your Profile</h1>
+      <form id="profileForm" class="form-card" style="text-align:left; max-width:500px; margin:1rem auto;">
+        <label>
+          Your Name<br/>
+          <input type="text" id="inpName" required />
+        </label><br/><br/>
+        <label>
+          Role<br/>
+          <select id="inpRole" required>
+            <option value="" disabled selected>Select role</option>
+            <option>Student</option>
+            <option>Ex Student</option>
+            <option>Staff</option>
+            <option>Teacher</option>
+            <option>Parent</option>
+          </select>
+        </label><br/><br/>
+        <label id="classLabel" style="display:none;">
+          Class<br/>
+          <select id="inpClass">
+            <option value="" disabled selected>Select class</option>
+            <option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+          </select>
+        </label><br/><br/>
+        <button type="submit" class="btn">Continue to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    // 1) Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider,
+      signInWithPopup, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+    import {
+      getFirestore, doc,
+      setDoc, getDoc
+    } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+    // 2) Init Firebase
+    const cfg = {
+      apiKey: "AIzaSyDuoQs8ntO6ityQsMeMwMulk9mO2m4ScVI",
+      authDomain: "verse-96d1b.firebaseapp.com",
+      projectId: "verse-96d1b",
+      storageBucket: "verse-96d1b.appspot.com",
+      messagingSenderId: "442515393829",
+      appId: "1:442515393829:web:049678d9cb119d4146decc",
+      measurementId: "G-3C74806Q83"
+    };
+    const app      = initializeApp(cfg);
+    const auth     = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const db       = getFirestore(app);
+
+    // 3) UI elements
+    const signInContainer = document.getElementById('signInContainer');
+    const profileContainer= document.getElementById('profileContainer');
+    const signInBtn       = document.getElementById('signInBtn');
+    const classLabel      = document.getElementById('classLabel');
+    const inpRole         = document.getElementById('inpRole');
+    const inpName         = document.getElementById('inpName');
+    const inpClass        = document.getElementById('inpClass');
+    const profileForm     = document.getElementById('profileForm');
+
+    // 4) Show/hide class dropdown
+    inpRole.addEventListener('change', () => {
+      classLabel.style.display = inpRole.value === 'Student' ? 'block' : 'none';
+    });
+
+    // 5) Sign-in button
+    signInBtn.addEventListener('click', async () => {
+      try {
+        const { user } = await signInWithPopup(auth, provider);
+        await setDoc(doc(db,'users',user.uid), {
+          name:   user.displayName,
+          email:  user.email,
+          vcoins: 500,
+          role:   null,
+          class:  null,
+          badges: []
+        }, { merge: true });
+        // onAuthStateChanged will fire next
+      } catch(e) {
+        alert('Sign-in failed: ' + e.message);
+      }
+    });
+
+    // 6) Profile form submit
+    profileForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return location.reload();
+      await setDoc(doc(db,'users',user.uid), {
+        name:  inpName.value.trim(),
+        role:  inpRole.value,
+        class: inpClass.value || null
+      }, { merge: true });
+      location.href = 'dashboard.html';
+    });
+
+    // 7) Auth guard & flow
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        // not signed-in yet
+        signInContainer.style.display = 'block';
+        profileContainer.style.display = 'none';
+      } else {
+        // already signed-in: check if profile complete
+        const snap = await getDoc(doc(db,'users',user.uid));
+        const d    = snap.data() || {};
+        if (!d.role) {
+          // show profile form
+          inpName.value = d.name || '';
+          signInContainer.style.display = 'none';
+          profileContainer.style.display = 'block';
+        } else {
+          // profile already done → go dashboard
+          location.href = 'dashboard.html';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
